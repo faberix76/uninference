@@ -1,7 +1,7 @@
 #!/usr/bin/env bash
-# build.sh – build container uninference con auto-incremento patch
+# build.sh – build container uninference, auto-incremento patch da .version
 # Uso:
-#   ./build.sh                          # tag automatico: uninference:X.Y.Z+1
+#   ./build.sh                          # tag: uninference:X.Y.Z (da .version)
 #   CUDA_ARCH=86 ./build.sh             # arch diversa (86 = RTX 30xx)
 # ─────────────────────────────────────────────────────────────────────────────
 
@@ -10,24 +10,30 @@ set -euo pipefail
 IMAGE_NAME="${IMAGE_NAME:-uninference}"
 CUDA_ARCH="${CUDA_ARCH:-89}"
 SCRIPT_DIR="$(cd "$(dirname "$0")" && pwd)"
+VERSION_FILE="${SCRIPT_DIR}/.version"
+DOCKER_VERSION_FILE="$(cd "${SCRIPT_DIR}/../docker-files" && pwd)/.version"
 
-# ── Trova l'ultima minor version ─────────────────────────────────────────────
-LATEST_TAG=$(docker images "${IMAGE_NAME}" --format '{{.Tag}}' \
-  | grep -E '^[0-9]+\.[0-9]+\.[0-9]+$' \
-  | sort -t. -k1,1n -k2,2n -k3,3n \
-  | tail -1 || true)
-
-if [ -z "$LATEST_TAG" ]; then
-  NEW_TAG="${IMAGE_NAME}:0.1.0"
-else
-  MAJOR="${LATEST_TAG%%.*}"
-  REST="${LATEST_TAG#*.}"
-  MINOR="${REST%%.*}"
-  PATCH="${REST#*.}"
-  PATCH="${PATCH%%.*}"
-  NEW_PATCH=$((PATCH + 1))
-  NEW_TAG="${IMAGE_NAME}:${MAJOR}.${MINOR}.${NEW_PATCH}"
+# ── Legge versione da .version (source of truth) ────────────────────────────
+if [ ! -f "$VERSION_FILE" ]; then
+  echo "ERROR: .version file not found at ${VERSION_FILE}"
+  exit 1
 fi
+
+CUR_VERSION="$(cat "${VERSION_FILE}" | tr -d '[:space:]')"
+if [ -z "$CUR_VERSION" ]; then
+  echo "ERROR: .version file is empty"
+  exit 1
+fi
+
+# ── Incrementa patch ────────────────────────────────────────────────────────
+MAJOR="${CUR_VERSION%%.*}"
+REST="${CUR_VERSION#*.}"
+MINOR="${REST%%.*}"
+PATCH="${REST#*.}"
+PATCH="${PATCH%%.*}"
+NEW_PATCH=$((PATCH + 1))
+NEW_VERSION="${MAJOR}.${MINOR}.${NEW_PATCH}"
+NEW_TAG="${IMAGE_NAME}:${NEW_VERSION}"
 
 echo "========================================================"
 echo ""
@@ -71,3 +77,8 @@ echo ""
 echo "  Build completata: ${NEW_TAG}"
 echo ""
 echo "========================================================"
+
+# ── Aggiorna .version (source of truth) ──────────────────────────────────────
+echo "${NEW_VERSION}" > "${VERSION_FILE}"
+echo "${NEW_VERSION}" > "${DOCKER_VERSION_FILE}"
+echo "  ${VERSION_FILE} → ${NEW_VERSION}"

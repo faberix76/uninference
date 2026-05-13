@@ -1,6 +1,6 @@
-# TurboQuant / Uninference
+# Uninference - High Customized and Optimized LLM Inference Server based on llama.cpp with CUDA Acceleration and CPU Offload for Mixture-of-Experts Models on Consumer Hardware
 
-High-performance LLM inference server powered by [llama.cpp](https://github.com/ggml-org/llama.cpp) with CUDA GPU acceleration, designed for running large Mixture-of-Experts (MoE) models on consumer-grade hardware (8 GB VRAM / 20 GB RAM).
+High-performance LLM inference server powered by [llama.cpp](https://github.com/ggml-org/llama.cpp) with CUDA GPU acceleration, designed for running models on consumer-grade hardware (8 GB VRAM / 20 GB RAM).
 
 ## What's Inside
 

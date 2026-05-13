@@ -37,3 +37,4 @@ CMakePresets.json
 .clang-format
 .clang-tidy
 .dockerignore
+.version
