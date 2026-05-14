@@ -2,4 +2,7 @@
 .gitnexus/
 .opencode/
 models/
-uninferenceOLD/
+.venv/
+__pycache__/
+.agentmcp.log
+.agentmcp.pid

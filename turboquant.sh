@@ -24,7 +24,7 @@ docker run -d \
     --port 8080 \
     --host 0.0.0.0 \
     --models-dir /models \
-    --models-max 4 \
+    --models-max 1 \
     --cache-type-k turbo4 \
     --cache-type-v turbo3 \
     --n-cpu-moe 35 \
@@ -34,12 +34,12 @@ docker run -d \
     --flash-attn on \
     --ubatch-size 256 \
     --batch-size 8192 \
-    -c 131072 \
+    -c 260000 \
     -ngl 999 \
     --threads 8 \
     --threads-batch 24 \
     --no-context-shift \
     --swa-full \
-    -nkvo \
-    --no-warmup
+    --slot-save-path /tmp \
+    --no-warmup \
     --webui-mcp-proxy'
