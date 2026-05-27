@@ -6,3 +6,6 @@ models/
 __pycache__/
 .agentmcp.log
 .agentmcp.pid
+backups/
+llama-cpp-turboquant/
+ik_llama.cpp/

@@ -4,6 +4,7 @@ models/
 tests/
 benches/
 scripts/
+!scripts/xxd.cmake
 .devops/
 .gemini/
 .github/

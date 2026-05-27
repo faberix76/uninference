@@ -1,0 +1,184 @@
+
+=== Qwen3.6-35B-A3B-UD-IQ3_XXS ===
+TG (generation):         17.17 tok/s
+PP (prefill):            124.13 tok/s
+Latency:                 231.45 ms/tok
+TTFR:                    24381.36 ms
+Params: --n-cpu-moe 35 -c 65536 --ubatch-size 512 --batch-size 8192 --threads 20 --threads-batch 24
+
+
+=== Qwen3.6-35B-A3B-UD-IQ3_XXS ===
+TG (generation):         17.26 tok/s
+PP (prefill):            132.11 tok/s
+Latency:                 227.71 ms/tok
+TTFR:                    22907.81 ms
+Params: --n-cpu-moe 35 -c 65536 --ubatch-size 512 --batch-size 8192 --threads 20 --threads-batch 29
+
+
+=== Qwen3.6-35B-A3B-UD-IQ3_XXS ===
+TG (generation):         16.41 tok/s
+PP (prefill):            132.96 tok/s
+Latency:                 245.43 ms/tok
+TTFR:                    22743.01 ms
+Params: --n-cpu-moe 35 -c 65536 --ubatch-size 512 --batch-size 8192 --threads 29 --threads-batch 29
+
+
+=== Qwen3.6-35B-A3B-UD-IQ3_XXS ===
+TG (generation):         18.46 tok/s
+PP (prefill):            138.89 tok/s
+Latency:                 230.29 ms/tok
+TTFR:                    21748.67 ms
+Params: --n-cpu-moe 32 -c 65536 --ubatch-size 512 --batch-size 8192 --threads 26 --threads-batch 29
+
+
+=== Qwen3.6-35B-A3B-UD-IQ3_XXS ===
+TG (generation):         18.14 tok/s
+PP (prefill):            145.8 tok/s
+Latency:                 219.67 ms/tok
+TTFR:                    20704.45 ms
+Params: --n-cpu-moe 30 -c 65536 --ubatch-size 512 --batch-size 8192 --threads 26 --threads-batch 29
+
+
+=== Qwen3.6-35B-A3B-UD-IQ3_XXS ===
+TG (generation):         18.44 tok/s
+PP (prefill):            167.48 tok/s
+Latency:                 233.25 ms/tok
+TTFR:                    18091.48 ms
+Params: --n-cpu-moe 26 -c 65536 --ubatch-size 512 --batch-size 8192 --threads 26 --threads-batch 29
+
+
+=== Qwen3.6-35B-A3B-UD-IQ3_XXS ===
+TG (generation):         25.02 tok/s
+PP (prefill):            176.56 tok/s
+Latency:                 498.5 ms/tok
+TTFR:                    17466.65 ms
+Params: --n-cpu-moe 24 -c 32000 --ubatch-size 512 --batch-size 8192 --threads 26 --threads-batch 29
+
+
+=== Qwen3.6-35B-A3B-UD-IQ3_XXS ===
+TG (generation):         8.31 tok/s
+PP (prefill):            229.67 tok/s
+Latency:                 396.4 ms/tok
+TTFR:                    13439.75 ms
+Params: --n-cpu-moe 23 -c 32000 --ubatch-size 512 --batch-size 8192 --threads 26 --threads-batch 29
+
+
+=== Qwen3.6-35B-A3B-UD-IQ3_XXS ===
+TG (generation):         35.54 tok/s
+PP (prefill):            198.68 tok/s
+Latency:                 183.5 ms/tok
+TTFR:                    15256.12 ms
+Params: --n-cpu-moe 25 -c 20000 --ubatch-size 512 --batch-size 8192 --threads 26 --threads-batch 29
+
+
+=== Qwen3.6-35B-A3B-UD-IQ3_XXS ===
+TG (generation):         30.88 tok/s
+PP (prefill):            211.93 tok/s
+Latency:                 153.96 ms/tok
+TTFR:                    14321.18 ms
+Params: --n-cpu-moe 25 -c 20000 --ubatch-size 256 --batch-size 8192 --threads 29 --threads-batch 29
+
+
+=== Qwen3.6-35B-A3B-UD-IQ3_XXS ===
+TG (generation):         30.48 tok/s
+PP (prefill):            222.25 tok/s
+Latency:                 152.27 ms/tok
+TTFR:                    13666.35 ms
+Params: --n-cpu-moe 24 -c 20000 --ubatch-size 256 --batch-size 8192 --threads 29 --threads-batch 29
+
+
+=== Qwen3.6-35B-A3B-UD-IQ2_XXS ===
+TG (generation):         33.87 tok/s
+PP (prefill):            252.45 tok/s
+Latency:                 201.61 ms/tok
+TTFR:                    12046.3 ms
+Params: --n-cpu-moe 22 -c 20000 --ubatch-size 512 --batch-size 8192 --threads 29 --threads-batch 29
+
+
+=== Qwen3.6-35B-A3B-UD-IQ3_XXS ===
+TG (generation):         18.35 tok/s
+PP (prefill):            166.8 tok/s
+Latency:                 216.28 ms/tok
+TTFR:                    18140.99 ms
+Params: --n-cpu-moe 26 -c 25000 --ubatch-size 512 --batch-size 8192 --threads 26 --threads-batch 29
+
+
+=== Qwen3.6-35B-A3B-UD-IQ2_XXS ===
+TG (generation):         37.91 tok/s
+PP (prefill):            239.65 tok/s
+Latency:                 179.01 ms/tok
+TTFR:                    12753.46 ms
+Params: --n-cpu-moe 22 -c 120000 --ubatch-size 512 --batch-size 8192 --threads 26 --threads-batch 29
+
+
+=== Qwen3.6-35B-A3B-UD-IQ2_XXS ===
+TG (generation):         36.97 tok/s
+PP (prefill):            243.6 tok/s
+Latency:                 136.71 ms/tok
+TTFR:                    12427.06 ms
+Params: --n-cpu-moe 22 -c 100000 --ubatch-size 512 --batch-size 8192 --threads 28 --threads-batch 30
+
+
+=== Qwen3.6-35B-A3B-UD-IQ2_XXS ===
+TG (generation):         36.86 tok/s
+PP (prefill):            248.29 tok/s
+Latency:                 328.77 ms/tok
+TTFR:                    12375.02 ms
+Params: --n-cpu-moe 23 -c 100000 --ubatch-size 512 --batch-size 8192 --threads 28 --threads-batch 30
+
+
+=== Qwen3.6-35B-A3B-UD-IQ2_XXS ===
+TG (generation):         32.23 tok/s
+PP (prefill):            144.53 tok/s
+Latency:                 179.65 ms/tok
+TTFR:                    20834.45 ms
+Params: --n-cpu-moe 35 -c 100000 --ubatch-size 512 --batch-size 8192 --threads 29 --threads-batch 30
+
+
+=== Qwen3.6-35B-A3B-UD-IQ2_XXS ===
+TG (generation):         37.09 tok/s
+PP (prefill):            244.17 tok/s
+Latency:                 165.32 ms/tok
+TTFR:                    12390.3 ms
+Params: --n-cpu-moe 22 -c 90000 --ubatch-size 512 --batch-size 8192 --threads 29 --threads-batch 30
+
+
+=== Qwen3.6-35B-A3B-UD-IQ2_XXS ===
+TG (generation):         27.97 tok/s
+PP (prefill):            248.92 tok/s
+Latency:                 555.94 ms/tok
+TTFR:                    12652.24 ms
+Params: --n-cpu-moe 22 -c 80000 --ubatch-size 512 --batch-size 8192 --threads 30 --threads-batch 30
+
+
+=== Qwen3.6-35B-A3B-UD-IQ2_XXS ===
+TG (generation):         38.56 tok/s
+PP (prefill):            260.34 tok/s
+Latency:                 141.5 ms/tok
+TTFR:                    11633.32 ms
+Params: --n-cpu-moe 21 -c 80000 --ubatch-size 512 --batch-size 8192 --threads 26 --threads-batch 28
+
+
+=== Qwen3.6-35B-A3B-UD-IQ2_XXS ===
+TG (generation):         39.05 tok/s
+PP (prefill):            266.06 tok/s
+Latency:                 139.57 ms/tok
+TTFR:                    11370.48 ms
+Params: --n-cpu-moe 20 -c 80000 --ubatch-size 512 --batch-size 8192 --threads 26 --threads-batch 28
+
+
+=== Qwen3.6-35B-A3B-UD-IQ2_XXS ===
+TG (generation):         37.42 tok/s
+PP (prefill):            221.69 tok/s
+Latency:                 145.77 ms/tok
+TTFR:                    13623.1 ms
+Params: --n-cpu-moe 24 -c 100000 --ubatch-size 512 --batch-size 8192 --threads 26 --threads-batch 28
+
+
+=== Qwen3.6-35B-A3B-UD-IQ2_XXS ===
+TG (generation):         61.18 tok/s
+PP (prefill):            200.31 tok/s
+Latency:                 149.96 ms/tok
+TTFR:                    59567.14 ms
+Params: --n-cpu-moe 24 -c 120000 --ubatch-size 512 --batch-size 8192 --threads 26 --threads-batch 28
+

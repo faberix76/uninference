@@ -1,0 +1,155 @@
+{
+  "version": "0.3.8.dev2+gff162bcfc",
+  "timestamp": "2026-05-14 22:55:59Z",
+  "latency_mode": "generation",
+  "latency_ms": 216.27793366618184,
+  "model": "Qwen3.6-35B-A3B-UD-IQ3_XXS",
+  "prefix_caching_enabled": true,
+  "max_concurrency": 1,
+  "benchmarks": [
+    {
+      "concurrency": 1,
+      "context_size": 4096,
+      "prompt_size": 2048,
+      "response_size": 2048,
+      "is_context_prefill_phase": true,
+      "pp_throughput": {
+        "mean": 188.51017745831066,
+        "std": 0.0,
+        "values": [
+          188.51017745831066
+        ]
+      },
+      "pp_req_throughput": {
+        "mean": 188.51017745831066,
+        "std": 0.0,
+        "values": [
+          188.51017745831066
+        ]
+      },
+      "tg_throughput": {
+        "mean": 19.126494724240615,
+        "std": 0.0,
+        "values": [
+          19.126494724240615
+        ]
+      },
+      "tg_req_throughput": {
+        "mean": 19.126494724240615,
+        "std": 0.0,
+        "values": [
+          19.126494724240615
+        ]
+      },
+      "peak_throughput": {
+        "mean": 21.0,
+        "std": 0.0,
+        "values": [
+          21.0
+        ]
+      },
+      "peak_req_throughput": {
+        "mean": 21.0,
+        "std": 0.0,
+        "values": [
+          21.0
+        ]
+      },
+      "ttfr": {
+        "mean": 21949.852509002085,
+        "std": 0.0,
+        "values": [
+          21949.852509002085
+        ]
+      },
+      "est_ppt": {
+        "mean": 21733.574575335904,
+        "std": 0.0,
+        "values": [
+          21733.574575335904
+        ]
+      },
+      "e2e_ttft": {
+        "mean": 21949.852509002085,
+        "std": 0.0,
+        "values": [
+          21949.852509002085
+        ]
+      },
+      "throughput_over_time": null,
+      "requests_throughput_over_time": null
+    },
+    {
+      "concurrency": 1,
+      "context_size": 4096,
+      "prompt_size": 2048,
+      "response_size": 2048,
+      "is_context_prefill_phase": false,
+      "pp_throughput": {
+        "mean": 145.0851596033372,
+        "std": 0.0,
+        "values": [
+          145.0851596033372
+        ]
+      },
+      "pp_req_throughput": {
+        "mean": 145.0851596033372,
+        "std": 0.0,
+        "values": [
+          145.0851596033372
+        ]
+      },
+      "tg_throughput": {
+        "mean": 17.570219325980602,
+        "std": 0.0,
+        "values": [
+          17.570219325980602
+        ]
+      },
+      "tg_req_throughput": {
+        "mean": 17.570219325980602,
+        "std": 0.0,
+        "values": [
+          17.570219325980602
+        ]
+      },
+      "peak_throughput": {
+        "mean": 19.0,
+        "std": 0.0,
+        "values": [
+          19.0
+        ]
+      },
+      "peak_req_throughput": {
+        "mean": 19.0,
+        "std": 0.0,
+        "values": [
+          19.0
+        ]
+      },
+      "ttfr": {
+        "mean": 14332.125520002592,
+        "std": 0.0,
+        "values": [
+          14332.125520002592
+        ]
+      },
+      "est_ppt": {
+        "mean": 14115.84758633641,
+        "std": 0.0,
+        "values": [
+          14115.84758633641
+        ]
+      },
+      "e2e_ttft": {
+        "mean": 14332.125520002592,
+        "std": 0.0,
+        "values": [
+          14332.125520002592
+        ]
+      },
+      "throughput_over_time": null,
+      "requests_throughput_over_time": null
+    }
+  ]
+}

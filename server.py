@@ -810,17 +810,218 @@ def gitnexus_clean(repo: Optional[str] = None) -> str:
 
 
 # ==========================================
-# RESOURCES
+# RESOURCES & RESOURCE TEMPLATES
 # ==========================================
 
 @mcp.resource("config://workspace")
 def get_workspace_info() -> str:
-    """Restituisce info sulla sandbox workspace corrente."""
+    """Info sulla sandbox workspace corrente."""
     return (
         f"WORKSPACE_DIR={WORKSPACE_DIR}\n"
         f"SHELL_TIMEOUT={SHELL_TIMEOUT}s\n"
         f"FETCH_TIMEOUT={FETCH_TIMEOUT}s\n"
         f"FETCH_USER_AGENT={FETCH_USER_AGENT}\n"
+    )
+
+
+@mcp.resource(
+    "file://workspace/{path*}",
+    description="Legge un file dal workspace. path supporta sottodirectory (es. server.py, docs/README.md).",
+)
+def read_workspace_file(path: str) -> str:
+    """
+    Legge il contenuto di un file del workspace via resources.
+    path supporta path con sottodirectory (es. src/main.py).
+    """
+    try:
+        resolved = _resolve_in_sandbox(path)
+    except ValueError as e:
+        return f"[ERROR] {e}"
+
+    if not resolved.exists():
+        return f"[ERROR] File non trovato: {path}"
+    if resolved.is_dir():
+        return f"[ERROR] '{path}' è una directory, non un file."
+
+    try:
+        content = resolved.read_text("utf-8")
+        lines = content.split("\n")
+        if len(lines) > 5000:
+            return (
+                f"[TRUNCATED] File con {len(lines)} righe. "
+                f"Mostrando prime 5000.\n" + "\n".join(lines[:5000])
+            )
+        return content
+    except UnicodeDecodeError:
+        return f"[ERROR] File non leggibile come testo: {path}"
+    except PermissionError:
+        return f"[ERROR] Permesso negato: {path}"
+    except Exception as e:
+        return f"[ERROR] {type(e).__name__}: {e}"
+
+
+# ==========================================
+# PROMPTS
+# ==========================================
+
+@mcp.prompt(
+    name="analyze_code",
+    description="Analizza il codice in un file specifico del workspace.",
+)
+def analyze_code_prompt(filepath: str, focus: str = "struttura generale") -> str:
+    """
+    Crea un prompt per analizzare codice in un file del workspace.
+    - filepath: percorso relativo del file (es. server.py)
+    - focus: cosa analizzare (es. 'struttura generale', 'sicurezza', 'performance')
+    """
+    snippet = ""
+    try:
+        resolved = _resolve_in_sandbox(filepath)
+        if resolved.exists() and not resolved.is_dir():
+            content = resolved.read_text("utf-8")
+            lines = content.split("\n")
+            snippet = "\n".join(lines[:200])
+            if len(lines) > 200:
+                snippet += f"\n# ... ({len(lines) - 200} righe troncate)"
+    except (ValueError, Exception):
+        snippet = "[Impossibile leggere il file]"
+
+    return (
+        f"Analizza il seguente codice nel file `{filepath}`.\n\n"
+        f"```\n{snippet}\n```\n\n"
+        f"Focalizzati su: {focus}.\n"
+        f"Spiegami cosa fa il codice, i pattern usati, e eventuali problemi."
+    )
+
+
+@mcp.prompt(
+    name="review_changes",
+    description="Analizza le modifiche git non committate nel workspace.",
+)
+def review_changes_prompt(scope: str = "unstaged", focus: str = "qualità del codice") -> str:
+    """
+    Prompt per revisionare modifiche git.
+    - scope: 'unstaged', 'staged', 'all'
+    - focus: aspetto da analizzare (es. 'qualità del codice', 'sicurezza', 'bug')
+    """
+    diff = ""
+    try:
+        cmd = ["git", "diff"]
+        if scope == "staged":
+            cmd = ["git", "diff", "--cached"]
+        elif scope == "all":
+            cmd = ["git", "diff", "HEAD"]
+        result = subprocess.run(cmd, capture_output=True, text=True, timeout=15, cwd=str(WORKSPACE_DIR))
+        diff = result.stdout[:5000] if result.stdout else "[Nessuna modifica trovata]"
+    except Exception:
+        diff = "[Impossibile ottenere il diff]"
+
+    return (
+        f"Revisiona le seguenti modifiche (scope: {scope}).\n\n"
+        f"```diff\n{diff}\n```\n\n"
+        f"Focalizzati su: {focus}.\n"
+        f"Evidenzia potenziali problemi, suggerisci miglioramenti, "
+        f"e valuta la qualità complessiva."
+    )
+
+
+@mcp.prompt(
+    name="search_codebase",
+    description="Cerca pattern nel codebase e analizza i risultati.",
+)
+def search_codebase_prompt(pattern: str, file_glob: str = "", context_lines: int = 3) -> str:
+    """
+    Cerca pattern nel codebase e prepara un'analisi.
+    - pattern: regex o stringa da cercare
+    - file_glob: filtro estensione (es. '*.py', '*.{ts,js}')
+    - context_lines: linee di contesto per ogni match
+    """
+    args = ["rg", "-n", "-C", str(context_lines), "--color=never", pattern, str(WORKSPACE_DIR)]
+    if file_glob:
+        args.extend(["--glob", file_glob])
+
+    results = ""
+    try:
+        result = subprocess.run(args, capture_output=True, text=True, timeout=30)
+        output = result.stdout.strip()
+        if not output:
+            results = f"[Nessun match trovato per '{pattern}']"
+        else:
+            results = output[:8000]
+            if len(output) > 8000:
+                results += "\n...[troncato]"
+    except FileNotFoundError:
+        # Fallback grep
+        try:
+            grep_args = ["grep", "-rn", "-B", str(context_lines), "-A", str(context_lines), pattern, str(WORKSPACE_DIR)]
+            result = subprocess.run(grep_args, capture_output=True, text=True, timeout=30)
+            results = result.stdout.strip()[:8000] or f"[Nessun match trovato per '{pattern}']"
+        except Exception as e:
+            results = f"[Errore: {e}]"
+    except Exception as e:
+        results = f"[Errore: {e}]"
+
+    return (
+        f"Ho cercato '{pattern}' nel codebase e ho trovato:\n\n"
+        f"```\n{results}\n```\n\n"
+        f"Analizza i risultati: descrivi cosa fa ogni match, "
+        f"come si collega al resto del sistema, e se ci sono pattern interessanti."
+    )
+
+
+@mcp.prompt(
+    name="explain_command",
+    description="Spiega un comando shell o un concetto di sistema.",
+)
+def explain_command_prompt(command: str) -> str:
+    """
+    Spiega un comando shell in dettaglio.
+    - command: il comando da spiegare
+    """
+    return (
+        f"Spiega in dettaglio il seguente comando shell:\n\n"
+        f"```bash\n{command}\n```\n\n"
+        f"Descrivi:\n"
+        f"1. Cosa fa ogni parte del comando\n"
+        f"2. Quali flag/opzioni vengono usati\n"
+        f"3. Eventuali rischi o side-effect\n"
+        f"4. Alternative o varianti comuni"
+    )
+
+
+@mcp.prompt(
+    name="git_commit_message",
+    description="Genera un messaggio di commit basato sulle modifiche staged.",
+)
+def git_commit_message_prompt(style: str = "convenzionale", language: str = "italiano") -> str:
+    """
+    Genera un messaggio di commit dalle modifiche staged.
+    - style: 'convenzionale' (Conventional Commits), 'breve', 'dettagliato'
+    - language: 'italiano' o 'english'
+    """
+    diff = ""
+    log = ""
+    try:
+        result = subprocess.run(
+            ["git", "diff", "--cached", "--stat"],
+            capture_output=True, text=True, timeout=10, cwd=str(WORKSPACE_DIR)
+        )
+        diff = result.stdout.strip() or "[Nessuna modifica staged]"
+
+        result = subprocess.run(
+            ["git", "log", "--oneline", "-10"],
+            capture_output=True, text=True, timeout=10, cwd=str(WORKSPACE_DIR)
+        )
+        log = result.stdout.strip()
+    except Exception:
+        pass
+
+    return (
+        f"Genera un messaggio di commit per le seguenti modifiche staged.\n\n"
+        f"### File modificati\n```\n{diff}\n```\n\n"
+        f"### Commit recenti\n```\n{log}\n```\n\n"
+        f"Stile: {style}\nLingua: {language}\n\n"
+        f"Restituisci SOLO il messaggio di commit, senza spiegazioni aggiuntive."
     )
 
 
