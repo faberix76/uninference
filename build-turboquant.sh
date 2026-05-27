@@ -16,26 +16,12 @@ TAG="${IMAGE_NAME}:latest"
 
 echo "========================================================"
 echo ""
-echo "  Status Docker before prune"
+echo "  Aggiorno il repo ufficiale llama-cpp-turboquant..."
 echo ""
 echo "========================================================"
 echo ""
-docker system df
-echo "========================================================"
+git -C "${SCRIPT_DIR}" pull origin feature/turboquant-kv-cache
 echo ""
-echo "  Clean Docker build cache e layers"
-echo ""
-echo "========================================================"
-echo ""
-docker image prune -f
-echo ""
-echo "========================================================"
-echo ""
-echo "  Status Docker after prune"
-echo ""
-echo "========================================================"
-echo ""
-docker system df
 
 echo "========================================================"
 echo "  Immagine  : ${TAG}"

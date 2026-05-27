@@ -49,7 +49,7 @@ docker run  \
     --no-mmap \
     --no-warmup \
     --mlock \
-    --n-cpu-moe 26 \
+    --n-cpu-moe 32 \
     --flash-attn on \
     --ubatch-size 512 \
     --verbose \

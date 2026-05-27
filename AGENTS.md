@@ -1,7 +1,7 @@
 <!-- gitnexus:start -->
 # GitNexus — Code Intelligence
 
-This project is indexed by GitNexus as **turboquant** (56999 symbols, 109408 relationships, 300 execution flows). Use the GitNexus MCP tools to understand code, assess impact, and navigate safely.
+This project is indexed by GitNexus as **uninference** (721 symbols, 929 relationships, 6 execution flows). Use the GitNexus MCP tools to understand code, assess impact, and navigate safely.
 
 > If any GitNexus tool warns the index is stale, run `npx gitnexus analyze` in terminal first.
 
@@ -24,10 +24,10 @@ This project is indexed by GitNexus as **turboquant** (56999 symbols, 109408 rel
 
 | Resource | Use for |
 |----------|---------|
-| `gitnexus://repo/turboquant/context` | Codebase overview, check index freshness |
-| `gitnexus://repo/turboquant/clusters` | All functional areas |
-| `gitnexus://repo/turboquant/processes` | All execution flows |
-| `gitnexus://repo/turboquant/process/{name}` | Step-by-step execution trace |
+| `gitnexus://repo/uninference/context` | Codebase overview, check index freshness |
+| `gitnexus://repo/uninference/clusters` | All functional areas |
+| `gitnexus://repo/uninference/processes` | All execution flows |
+| `gitnexus://repo/uninference/process/{name}` | Step-by-step execution trace |
 
 ## CLI
 
